@@ -1,7 +1,4 @@
 
-
-
-
 def read_expenses():
     with open("data.txt", "r") as data_file:
         expenses = []
@@ -23,59 +20,97 @@ def add_expense():
                 continue
             else:
                 break
-        except:
+        except ValueError:
             print("Enter a number : ")
     description = input("Enter description : ")
-    expense = {
-        "date": date,
-        "category": category,
-        "amount": amount,
-        "description": description,  
-    }
+    # expense = {
+    #     "date": date,
+    #     "category": category,
+    #     "amount": amount,
+    #     "description": description,  
+    # }
     print("Expense added successfully!")
     line = f"{date} | {category} | {amount} | {description}\n"
     with open("data.txt", "a") as data_file:
         data_file.write(line)
 
+# ----------------------------
+
+def delete_expense():
+    data_file = read_expenses()
+
+    if not data_file:
+        print("No expenses to delete.")
+        return
+
+    for i, line in enumerate(data_file, start=1):
+        print(i, line)
+
+    while True:
+        try:
+            delete = int(input("Enter the expense you want to eliminate by its number : "))
+
+            if delete < 1 or delete > len(data_file):
+                print("Invalid number")
+            else:
+                break
+        except ValueError:
+            print("Enter a number : ")
+
+    data_file.pop(delete - 1)
+
+    with open("data.txt", "w") as file:
+        for expense in data_file:
+            line = f"{expense[0]} | {expense[1]} | {expense[2]} | {expense[3]}\n"
+            file.write(line)
+
+    print("Expense deleted successfully!")
+
+# ----------------------------
 
 def view_expenses():
     data_file = read_expenses()
-    count = 1
+
     if not data_file:
         print("No expenses found")
-    else:
-        for line in data_file:
-            print(count, line)
-            count += 1
+        return
+    for i, line in enumerate(data_file, start=1):
+        print(i, line)
 
+# ----------------------------
 
 def show_stats():
     data_file = read_expenses()
-    total = 0
-    for line in data_file: 
-        total+= float(line[2])
+    total = sum(float(expense[2]) for expense in data_file)
     print(f"Total expenses: {total} €")
+
+# ----------------------------
 
 def show_menu():
     print(""">>> 
         1 - Add expense
-        2 - View expenses!
-        3 - Show stats
-        4 - Exit
+        2 - Delete expense 
+        3 - View expenses!
+        4 - Show stats
+        5 - Exit
         """)
+
+# ----------------------------
 
 
 user_int = 0
-while user_int != 4 :
+while user_int != 5 :
     show_menu()
     user_int = int(input("What is your choice ? : "))
     if user_int == 1:
         add_expense()
     elif user_int == 2:
-        view_expenses()
+        delete_expense()
     elif user_int == 3:
-        show_stats()
+        view_expenses()
     elif user_int == 4:
+        show_stats()
+    elif user_int == 5:
         print("The program stopping")
         break
     else:
