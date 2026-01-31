@@ -1,0 +1,2 @@
+2026-01-30 | Food | 12.50 | Pizza
+2026-02-01 | Gym | 25.0 | Weighted dips
