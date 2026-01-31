@@ -8,3 +8,4 @@
 2026-02-02 | Shopping | 45.0 | Running shoes
 2026-02-03 | Food | 3.20 | Coffee
 2026-02-04 | Education | 12.0 | Online course
+2025-05-01 | Food | 12.0 | KFC

@@ -23,12 +23,6 @@ def add_expense():
         except ValueError:
             print("Enter a number : ")
     description = input("Enter description : ")
-    # expense = {
-    #     "date": date,
-    #     "category": category,
-    #     "amount": amount,
-    #     "description": description,  
-    # }
     print("Expense added successfully!")
     line = f"{date} | {category} | {amount} | {description}\n"
     with open("data.txt", "a") as data_file:
