@@ -1,11 +1,2 @@
-2026-01-30 | Food | 12.50 | Pizza
-2026-02-01 | Gym | 25.0 | Weighted dips
-2026-01-28 | Transport | 2.10 | Bus ticket
-2026-01-29 | Food | 8.90 | Chicken wrap
-2026-01-30 | Entertainment | 14.99 | Netflix subscription
-2026-01-31 | Gym | 30.0 | Weighted pull-ups
-2026-02-01 | Health | 6.50 | Protein bar
-2026-02-02 | Shopping | 45.0 | Running shoes
-2026-02-03 | Food | 3.20 | Coffee
-2026-02-04 | Education | 12.0 | Online course
-2025-05-01 | Food | 12.0 | KFC
+2025-03-01 | Food | 12.5 | Pizza
+2025-05-02 | Food | 40.0 | Sushi

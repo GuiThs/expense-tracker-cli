@@ -1,15 +1,36 @@
 
 def read_expenses():
-    with open("data.txt", "r") as data_file:
-        expenses = []
-        for line in data_file:
-            expense = line.strip().split(" | ")
-            expenses.append(expense)
-        return expenses
-    
+    expenses = []
+
+    try:   
+        with open("data.txt", "r") as data_file:
+            for line in data_file:
+                date, category, amount, description = line.strip().split(" | ")
+                expense = [
+                    date,
+                    category,
+                    float(amount),
+                    description
+                ] 
+                expenses.append(expense)
+    except FileNotFoundError:
+        pass # no data
+
+    return expenses
+
+# ----------------------------
+
+def write_expenses(expenses):
+    with open("data.txt", "w") as data_file:
+        for expense in expenses:
+            line = f"{expense[0]} | {expense[1]} | {expense[2]} | {expense[3]}\n"
+            data_file.write(line)
+
 # ----------------------------
 
 def add_expense():
+    expenses = read_expenses()
+
     date = input("Enter date : ")
     category = input("Enter category : ")
     while True:
@@ -22,60 +43,58 @@ def add_expense():
                 break
         except ValueError:
             print("Enter a number : ")
+
     description = input("Enter description : ")
+    
+    expenses.append([date, category, amount, description])
+    write_expenses(expenses)
+
     print("Expense added successfully!")
-    line = f"{date} | {category} | {amount} | {description}\n"
-    with open("data.txt", "a") as data_file:
-        data_file.write(line)
 
 # ----------------------------
 
 def delete_expense():
-    data_file = read_expenses()
+    expenses = read_expenses()
 
-    if not data_file:
+    if not expenses:
         print("No expenses to delete.")
         return
 
-    for i, line in enumerate(data_file, start=1):
-        print(i, line)
+    for i, line in enumerate(expenses, start=1):
+        print(f"{i}. {line[0]} | {line[1]} | {line[2]:.2f} € | {line[3]}")
 
     while True:
         try:
             delete = int(input("Enter the expense you want to eliminate by its number : "))
 
-            if delete < 1 or delete > len(data_file):
+            if delete < 1 or delete > len(expenses):
                 print("Invalid number")
             else:
                 break
         except ValueError:
             print("Enter a number : ")
 
-    data_file.pop(delete - 1)
-
-    with open("data.txt", "w") as file:
-        for expense in data_file:
-            line = f"{expense[0]} | {expense[1]} | {expense[2]} | {expense[3]}\n"
-            file.write(line)
-
+    expenses.pop(delete - 1)
+    write_expenses(expenses)  
+            
     print("Expense deleted successfully!")
 
 # ----------------------------
 
 def view_expenses():
-    data_file = read_expenses()
+    expenses = read_expenses()
 
-    if not data_file:
+    if not expenses:
         print("No expenses found")
         return
-    for i, line in enumerate(data_file, start=1):
-        print(i, line)
+    for i, line in enumerate(expenses, start=1):
+        print(f"{i}. {line[0]} | {line[1]} | {line[2]:.2f} € | {line[3]}")
 
 # ----------------------------
 
 def show_stats():
-    data_file = read_expenses()
-    total = sum(float(expense[2]) for expense in data_file)
+    expenses = read_expenses()
+    total = sum(expense[2] for expense in expenses)
     print(f"Total expenses: {total} €")
 
 # ----------------------------
