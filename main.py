@@ -91,11 +91,25 @@ def show_menu():
 
 # ----------------------------
 
+def get_user_choice():
+    while True:
+        try:
+            choice = int(input("What is your choice ? : "))
+            if 1 <= choice <= 5:
+                return choice
+            else:
+                print("Choose a number between 1 and 5.")
+        except ValueError:
+            print("Please enter a valid number.")
 
-user_int = 0
-while user_int != 5 :
+# ----------------------------
+
+
+
+
+while True :
     show_menu()
-    user_int = int(input("What is your choice ? : "))
+    user_int = get_user_choice()
     if user_int == 1:
         add_expense()
     elif user_int == 2:
@@ -105,7 +119,5 @@ while user_int != 5 :
     elif user_int == 4:
         show_stats()
     elif user_int == 5:
-        print("The program stopping")
+        print("Program stopped.")
         break
-    else:
-        print("ERROR, Retry")
